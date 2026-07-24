@@ -1093,7 +1093,7 @@ if (isOnline) {
 }
 
     const urlParams = new URLSearchParams(window.location.search);
-    const roomIdFromUrl = urlParams.get('roomId');
+    const roomIdFromUrl = window.__initialRoomId || urlParams.get('roomId');
     const lastVisitedRoomId = localStorage.getItem('lastVisitedRoomId');
     currentRoomId = roomIdFromUrl || lastVisitedRoomId;
     if (!currentRoomId) {
@@ -1102,14 +1102,6 @@ if (isOnline) {
     }
     localStorage.setItem('lastVisitedRoomId', currentRoomId);
 
-    // ✨ إخفاء اسم الصفحة ومعرف الغرفة من شريط عنوان المتصفح، بحيث يبقى
-    // الرابط الظاهر www.sawalif.ct.ws دائماً بدل chat.html?roomId=...
-    // (لا يؤثر على عمل الصفحة، لأن currentRoomId محفوظ فعلياً بالمتغير
-    // أعلاه، ونسخته الاحتياطية بـ localStorage تحت اسم lastVisitedRoomId
-    // تكفي لو المستخدم عمل تحديث/refresh للصفحة).
-    if (window.location.pathname !== '/' || window.location.search) {
-        history.replaceState(null, '', '/');
-    }
 
     const chatContainer = document.querySelector('.chat-container');
     if (!chatContainer) {

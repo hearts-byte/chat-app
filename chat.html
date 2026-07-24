@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+  <script>
+    // ✨ نخفي اسم الملف ومعرف الغرفة من شريط العنوان فوراً (قبل أي تحميل)
+    // عشان ما يظهر وميض بالرابط أثناء التحميل. نحفظ معرف الغرفة أول بمتغير
+    // عالمي حتى يقدر js/main.js يقرأه لاحقاً رغم إخفائه من الرابط.
+    window.__initialRoomId = new URLSearchParams(window.location.search).get('roomId');
+    if (window.location.pathname !== '/' || window.location.search) {
+      history.replaceState(null, '', '/');
+    }
+  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title> شات القلوب الراقية</title>
