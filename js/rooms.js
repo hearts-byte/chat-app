@@ -3,6 +3,12 @@ import { collection, getDocs, query, orderBy, addDoc, doc, getDoc } from "https:
 import { uploadFileToCloudinary } from './cloudinary-utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ✨ إخفاء اسم الصفحة (rooms.html) من شريط عنوان المتصفح، بحيث يبقى
+    // الرابط الظاهر www.sawalif.ct.ws دائماً بدل rooms.html
+    if (window.location.pathname !== '/') {
+        history.replaceState(null, '', '/');
+    }
+
     // ----------------------------------------------------
     // الكود المحدث لجلب وعرض صورة البروفايل
     // ----------------------------------------------------

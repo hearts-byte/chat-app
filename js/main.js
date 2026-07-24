@@ -1102,6 +1102,15 @@ if (isOnline) {
     }
     localStorage.setItem('lastVisitedRoomId', currentRoomId);
 
+    // ✨ إخفاء اسم الصفحة ومعرف الغرفة من شريط عنوان المتصفح، بحيث يبقى
+    // الرابط الظاهر www.sawalif.ct.ws دائماً بدل chat.html?roomId=...
+    // (لا يؤثر على عمل الصفحة، لأن currentRoomId محفوظ فعلياً بالمتغير
+    // أعلاه، ونسخته الاحتياطية بـ localStorage تحت اسم lastVisitedRoomId
+    // تكفي لو المستخدم عمل تحديث/refresh للصفحة).
+    if (window.location.pathname !== '/' || window.location.search) {
+        history.replaceState(null, '', '/');
+    }
+
     const chatContainer = document.querySelector('.chat-container');
     if (!chatContainer) {
         document.body.innerHTML = '<div style="text-align: center; color: red; padding-top: 50px;">خطأ: لم يتم العثور على عنصر "chat-container". تأكد من وجوده في ملف HTML (chat.html).</div>';
