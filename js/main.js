@@ -5,7 +5,7 @@ import {
     createSystemMessageElement, createMessageElement, addRegistrationButtonToBottomBar 
 } from './chat-ui.js';
 import { 
-    loadInitialMessages, loadMoreMessages, listenForNewMessages,
+    loadInitialMessages, loadMoreMessages, listenForNewMessages, getSafeCursorDoc,
     sendMessage, getPrivateChatContacts, getAllUsersAndVisitors, getUserData, setupPrivateMessageNotificationListener, sendJoinMessage, deleteChatRoomMessages, sendSystemMessage, getChatRooms, listenForUserRankChanges, updateUserData
 } from './chat-firestore.js';
 import { RANK_ORDER, RANK_IMAGE_MAP, RANK_PERMISSIONS } from './constants.js';
@@ -1282,7 +1282,7 @@ checkMuteStatusAndUpdateUI();
 if (messagesUnsubscriber) messagesUnsubscriber();
 // ✨ نمرر أحدث رسالة تم تحميلها (window._messagesPagination.messages[0])
 // حتى يبدأ المستمع اللحظي من بعدها فقط، بدل تحميل كل تاريخ الغرفة.
-const latestLoadedMsgDoc = window._messagesPagination?.messages?.[0] || null;
+const latestLoadedMsgDoc = getSafeCursorDoc(window._messagesPagination?.messages || []);
 messagesUnsubscriber = listenForNewMessages(currentRoomId, latestLoadedMsgDoc);
 listenForUserRankChanges();
 

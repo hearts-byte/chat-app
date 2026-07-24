@@ -114,6 +114,22 @@ export async function getChatRooms() {
 
 // ... (الكود السابق)
  
+// ✨ إصلاح: تعطي أول مستند "مؤكد" (تم تخزينه فعلياً على السيرفر) من مصفوفة
+// مستندات. الرسالة التي أُرسلت للتو قد تظهر محلياً قبل أن يؤكد السيرفر
+// وقتها (serverTimestamp لسا "معلّق")، واستخدام هذا النوع من المستندات
+// كنقطة بداية/نهاية لاستعلام (startAfter) يسبب خطأ Firestore:
+// "uncommitted server timestamp". هذه الدالة تتجاوز أي مستند معلّق
+// وتُرجع أقرب مستند مؤكد فعلياً.
+export function getSafeCursorDoc(docsArray) {
+  if (!docsArray || docsArray.length === 0) return null;
+  for (const d of docsArray) {
+    if (!d.metadata || !d.metadata.hasPendingWrites) {
+      return d;
+    }
+  }
+  return null;
+}
+
 export async function fetchRoomMessages(roomId, pageSize = 50, lastDoc = null) {
   const messagesCol = collection(db, 'rooms', roomId, 'messages');
   let q = query(messagesCol, orderBy('timestamp', 'desc'), limit(pageSize));
@@ -155,7 +171,7 @@ export async function loadMoreMessages(renderMessages) {
     pagination.hasMore = false;
     return;
   }
-  pagination.lastDoc = docs.length > 0 ? docs[docs.length - 1] : pagination.lastDoc;
+  pagination.lastDoc = docs.length > 0 ? (getSafeCursorDoc([...docs].reverse()) || pagination.lastDoc) : pagination.lastDoc;
   pagination.messages = docs.concat(pagination.messages);
   renderMessages(docs.reverse(), false);
 }
