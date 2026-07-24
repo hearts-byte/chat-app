@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (isLocked && hasPassword) {
                     openPasswordModal(roomId);
                 } else {
-                    localStorage.setItem('currentRoom', roomId);
+                    localStorage.setItem('lastVisitedRoomId', roomId);
                     window.location.href = `chat.html?roomId=${roomId}`;
                 }
             };
