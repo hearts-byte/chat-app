@@ -1,23 +1,13 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <script>
-    // ✨ نخفي اسم الملف ومعرف الغرفة من شريط العنوان فوراً (قبل أي تحميل)
-    // عشان ما يظهر وميض بالرابط أثناء التحميل. نحفظ معرف الغرفة أول بمتغير
-    // عالمي حتى يقدر js/main.js يقرأه لاحقاً رغم إخفائه من الرابط.
-    window.__initialRoomId = new URLSearchParams(window.location.search).get('roomId');
-    var basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
-    if (window.location.pathname !== basePath || window.location.search) {
-      history.replaceState(null, '', basePath);
-    }
-  </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title> شات القلوب الراقية</title>
   <meta name="description" content=" شات القلوب الراقية - دردشة مجانية وأصدقاء ممتعين.">
   <meta name="keywords" content="شات, دردشة, قلوب, أصدقاء,  شات القلوب الراقية">
 
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://firestore.googleapis.com" crossorigin>
@@ -41,7 +31,7 @@
   if (!localStorage.getItem('chatUserId')) {
     window.location.href = 'index.html';
   }
-  if (!window.__initialRoomId && !localStorage.getItem('lastVisitedRoomId')) {
+  if (!new URLSearchParams(window.location.search).get('roomId') && !localStorage.getItem('lastVisitedRoomId')) {
     window.location.href = 'rooms.html';
   }
 </script>

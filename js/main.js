@@ -1093,7 +1093,7 @@ if (isOnline) {
 }
 
     const urlParams = new URLSearchParams(window.location.search);
-    const roomIdFromUrl = window.__initialRoomId || urlParams.get('roomId');
+    const roomIdFromUrl = urlParams.get('roomId');
     const lastVisitedRoomId = localStorage.getItem('lastVisitedRoomId');
     currentRoomId = roomIdFromUrl || lastVisitedRoomId;
     if (!currentRoomId) {
