@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # رابط خريطة الموقع
-Sitemap: http://www.sawalif.ct.ws/sitemap.xml
+Sitemap: https://hearts-byte.github.io/chat-app/sitemap.xml
