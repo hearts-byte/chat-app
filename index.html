@@ -3,8 +3,9 @@
 <head>
     <script>
       // ✨ نخفي اسم الملف (index.html) من شريط العنوان فوراً قبل أي تحميل
-      if (window.location.pathname !== '/') {
-        history.replaceState(null, '', '/');
+      var basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+      if (window.location.pathname !== basePath) {
+        history.replaceState(null, '', basePath);
       }
     </script>
     <meta charset="UTF-8">

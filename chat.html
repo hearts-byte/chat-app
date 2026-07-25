@@ -6,8 +6,9 @@
     // عشان ما يظهر وميض بالرابط أثناء التحميل. نحفظ معرف الغرفة أول بمتغير
     // عالمي حتى يقدر js/main.js يقرأه لاحقاً رغم إخفائه من الرابط.
     window.__initialRoomId = new URLSearchParams(window.location.search).get('roomId');
-    if (window.location.pathname !== '/' || window.location.search) {
-      history.replaceState(null, '', '/');
+    var basePath = window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+    if (window.location.pathname !== basePath || window.location.search) {
+      history.replaceState(null, '', basePath);
     }
   </script>
   <meta charset="UTF-8" />
