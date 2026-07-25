@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # رابط خريطة الموقع
-Sitemap: http://www.sawalif.42web.io/sitemap.xml
+Sitemap: http://www.sawalif.ct.ws/sitemap.xml
