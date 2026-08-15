@@ -2201,7 +2201,7 @@ function countryFlag($country){
 }
 function checkRateLimit(){
 	global $setting;
-	if($setting['use_rate'] == 1){
+	if(isset($setting['use_rate']) && $setting['use_rate'] == 1){
 		if(isset($_SESSION[BOOM_PREFIX . 'fignore']) && $_SESSION[BOOM_PREFIX . 'fignore'] > time()){
 			return true;
 		}
