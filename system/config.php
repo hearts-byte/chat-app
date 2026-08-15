@@ -6,6 +6,9 @@ require("function.php");
 require("function_all.php");
 require('function_sranking.php');
 require('settings.php');
+if(!isset($setting) || !is_array($setting)){
+	$setting = settingDetails();
+}
 require('function_redis.php');
 
 if(checkRateLimit()){
